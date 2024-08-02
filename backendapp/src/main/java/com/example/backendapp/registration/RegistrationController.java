@@ -1,26 +1,29 @@
 package com.example.backendapp.registration;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-
-
-@Controller
-@RequestMapping(path = "api/v1/registration")
+@RestController
+@RequestMapping(path = "api/v1")
 @AllArgsConstructor
 public class RegistrationController {
 
+    private final RegistrationService registrationService;
 
-    @GetMapping("/test")
+    @PostMapping("/print")
+    public void printStrings(@RequestBody RegistrationRequest request) {
+        // Print the received strings to the console
+        System.out.println("First Name: " + request.getFirstName());
+        System.out.println("Last Name: " + request.getLastName());
+    }
+
+
+    @GetMapping("test")
     public String test() {
         return "test endpoint";
     }
-    private final RegistrationService registrationService;
 
-    @PostMapping
+    @PostMapping("register")
     public String register(@RequestBody RegistrationRequest request) {
         return registrationService.register(request);
     }
@@ -29,7 +32,4 @@ public class RegistrationController {
     public String confirm(@RequestParam("token") String token) {
         return registrationService.confirmToken(token);
     }
-
-
-
 }
