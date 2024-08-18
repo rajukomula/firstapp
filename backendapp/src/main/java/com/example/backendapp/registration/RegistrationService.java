@@ -9,12 +9,17 @@ import com.example.backendapp.registration.token.ConfirmationTokenService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.beans.factory.annotation.Value;
+
 
 import java.time.LocalDateTime;
 
 @Service
 @AllArgsConstructor
 public class RegistrationService {
+
+    // @Value("${my.links.link1}")
+    // private String mainLink;
 
     private final AppUserService appUserService;
     private final EmailValidator emailValidator;
@@ -24,7 +29,6 @@ public class RegistrationService {
     public String register(RegistrationRequest request) {
         boolean isValidEmail = emailValidator.
                 test(request.getEmail());
-
         if (!isValidEmail) {
             throw new IllegalStateException("email not valid");
         }
@@ -40,13 +44,17 @@ public class RegistrationService {
                 )
         );
 
-        String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
+
+        String link =  "https://musical-train-7vrjpgwx64xj3rpv5-8080.app.github.dev" + "/api/v1/confirm?token=" + token;
         emailSender.send(
                 request.getEmail(),
                 buildEmail(request.getFirstName(), link));
 
         return token;
+        // return "works";
     }
+
+    
 
     @Transactional
     public String confirmToken(String token) {

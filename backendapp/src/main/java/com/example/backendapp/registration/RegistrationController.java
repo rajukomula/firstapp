@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class RegistrationController {
 
+
     private final RegistrationService registrationService;
 
     @PostMapping("/print")
@@ -17,11 +18,25 @@ public class RegistrationController {
         System.out.println("Last Name: " + request.getLastName());
     }
 
-
     @GetMapping("test")
     public String test() {
+        
         return "test endpoint";
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
 
     @PostMapping("register")
     public String register(@RequestBody RegistrationRequest request) {

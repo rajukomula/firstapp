@@ -3,15 +3,19 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://database-1.c1ky0kwmm0qe.us-east-1.rds.amazonaws.com:5432/postgres
-    username: postgres
-    password: porsche1249
+    url: jdbc:postgresql://postgresservice-jobsearchapplication.i.aivencloud.com:26114/defaultdb
+    username: avnadmin
+    password: AVNS_3-nFDWAyFsOQZBDeqDg
     driver-class-name: org.postgresql.Driver
     hikari:
-      max-lifetime: 1800000
+      maximum-pool-size: 10
+      max-lifetime: 300000 # 5 minutes
+      idle-timeout: 600000 # 10 minutes
+      connection-timeout: 30000 # 30 seconds
+      validation-timeout: 5000 # 5 seconds
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
@@ -28,11 +32,10 @@ spring:
       name: user
       password: password
   mail:
-    host: https://curly-fishstick-x75pjjvx9x5c6797.github.dev/
-    port: 1025
-    username: hello
-    password: hello
-
+    host: smtp.gmail.com
+    port: 587
+    username: your email address through which you will send the link
+    password: password of your email address
     properties:
       mail:
         smtp:
@@ -44,3 +47,7 @@ spring:
           connectiontimeout: 5000
           timeout: 3000
           writetimeout: 5000
+my:
+  links:
+    link1: https://musical-train-7vrjpgwx64xj3rpv5-8080.app.github.dev
+    link2: https://example.com/link2

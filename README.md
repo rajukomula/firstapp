@@ -8,7 +8,7 @@ sdk install java 17.0.9-graalce
 
 
 
-psql -U postgres -h database-1.c1ky0kwmm0qe.us-east-1.rds.amazonaws.com
+psql -U postgres -h postgresservice-jobsearchapplication.i.aivencloud.com
                      
 password : 12345678
 yout
@@ -31,3 +31,4 @@ export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 
 ngrok authtoken : 
 2idz1Nzl0147F3RMJTtMkBwfEGR_6Ccy8FN4qbTzJASHNFGpQ
+ 
