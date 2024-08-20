@@ -12,10 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.context.annotation.Bean;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
-
 import java.time.LocalDateTime;
 import java.util.UUID;
+import java.util.Date;
 
 @Service
 public class AppUserService implements UserDetailsService {
@@ -47,7 +46,7 @@ public class AppUserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email)
             throws UsernameNotFoundException {
-        return appUserRepository.findByEmail(email)
+        return appUserRepository.findByEmailIdIgnoreCase(email)
                 .orElseThrow(() ->
                         new UsernameNotFoundException(
                                 String.format(USER_NOT_FOUND_MSG, email)));
@@ -55,7 +54,7 @@ public class AppUserService implements UserDetailsService {
 
     public String signUpUser(AppUser appUser) {
         boolean userExists = appUserRepository
-                .findByEmail(appUser.getEmail())
+                .findByEmailIdIgnoreCase(appUser.getEmail())
                 .isPresent();
 
         if (userExists) {
@@ -78,7 +77,7 @@ public class AppUserService implements UserDetailsService {
 
         ConfirmationToken confirmationToken = new ConfirmationToken(
                 token,
-                LocalDateTime.now(),
+                new Date(),
                 LocalDateTime.now().plusMinutes(15),
                 appUser
         );

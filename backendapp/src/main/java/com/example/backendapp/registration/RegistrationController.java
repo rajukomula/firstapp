@@ -2,9 +2,19 @@ package com.example.backendapp.registration;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.mail.SimpleMailMessage;
+import com.example.backendapp.appuser.AppUser;
 import com.example.backendapp.appuser.AppUserRepository;
+import com.example.backendapp.email.EmailService;
+import com.example.backendapp.registration.token.ConfirmationToken;
+import com.example.backendapp.registration.token.ConfirmationTokenRepository;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 
 
@@ -16,7 +26,7 @@ public class RegistrationController {
 
 
     @Autowired
-    private UserRepository userRepository;
+    private AppUserRepository appUserRepository;
 
     @Autowired
     private ConfirmationTokenRepository confirmationTokenRepository;
@@ -25,9 +35,9 @@ public class RegistrationController {
     private EmailService emailService;
 
     @RequestMapping(value="/register", method = RequestMethod.GET)
-    public ModelAndView displayRegistration(ModelAndView modelAndView, UserEntity userEntity)
+    public ModelAndView displayRegistration(ModelAndView modelAndView, AppUser appUser)
     {
-        modelAndView.addObject("userEntity", userEntity);
+        modelAndView.addObject("appUser", appUser);
         modelAndView.setViewName("register");
         return modelAndView;
     }
@@ -35,10 +45,11 @@ public class RegistrationController {
     
     
     @RequestMapping(value="/register", method = RequestMethod.POST)
-    public ModelAndView registerUser(ModelAndView modelAndView, UserEntity userEntity)
+    public ModelAndView registerUser(ModelAndView modelAndView, AppUser appUser)
     {
 
-    	UserEntity existingUser = userRepository.findByEmailIdIgnoreCase(userEntity.getEmailId());
+    	AppUser existingUser = appUserRepository.findByEmailIdIgnoreCase(appUser.getEmail())
+                                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         if(existingUser != null)
         {
             modelAndView.addObject("message","This email already exists!");
@@ -46,14 +57,14 @@ public class RegistrationController {
         }
         else
         {
-            userRepository.save(userEntity);
+            appUserRepository.save(appUser);
 
-            ConfirmationToken confirmationToken = new ConfirmationToken(userEntity);
+            ConfirmationToken confirmationToken = new ConfirmationToken(appUser);
 
             confirmationTokenRepository.save(confirmationToken);
 
             SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setTo(userEntity.getEmailId());
+            mailMessage.setTo(appUser.getEmail());
             mailMessage.setSubject("Complete Registration!");
             mailMessage.setFrom("YOUR EMAIL ADDRESS");
             mailMessage.setText("To confirm your account, please click here : "
@@ -61,7 +72,7 @@ public class RegistrationController {
 
             emailService.sendEmail(mailMessage);
 
-            modelAndView.addObject("emailId", userEntity.getEmailId());
+            modelAndView.addObject("email", appUser.getEmail());
 
             modelAndView.setViewName("successfulRegisteration");
         }
@@ -73,13 +84,15 @@ public class RegistrationController {
     @RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token")String confirmationToken)
     {
-        ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+        ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken)
+                                            .orElseThrow(() -> new UsernameNotFoundException("ConfirmationToken not found"));
 
         if(token != null)
         {
-        	UserEntity user = userRepository.findByEmailIdIgnoreCase(token.getUserEntity().getEmailId());
+        	AppUser user = appUserRepository.findByEmailIdIgnoreCase(token.getAppUser().getEmail())
+                            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
             user.setEnabled(true);
-            userRepository.save(user);
+            appUserRepository.save(user);
             modelAndView.setViewName("accountVerified");
         }
         else

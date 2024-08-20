@@ -13,6 +13,8 @@ import jakarta.persistence.Column;
 import com.example.backendapp.appuser.AppUser;
 
 import java.time.LocalDateTime;
+import java.util.Date;
+
 
 @Getter
 @Setter
@@ -33,15 +35,15 @@ public class ConfirmationToken {
     private Long id;
 
     @Column(nullable = false)
-    private String token;
+    private String ConfirmationToken;
 
     @Column(nullable = false)
-    private LocalDateTime createdAt;
+    private Date createdAt;
 
     @Column(nullable = false)
     private LocalDateTime expiresAt;
 
-    private LocalDateTime confirmedAt;
+//     private LocalDateTime confirmedAt;
 
     @ManyToOne
     @JoinColumn(
@@ -50,13 +52,17 @@ public class ConfirmationToken {
     )
     private AppUser appUser;
 
-    public ConfirmationToken(String token,
-                             LocalDateTime createdAt,
+    public ConfirmationToken(String ConfirmationToken,
+                             Date createdAt,
                              LocalDateTime expiresAt,
                              AppUser appUser) {
-        this.token = token;
+        this.ConfirmationToken = ConfirmationToken;
         this.createdAt = createdAt;
         this.expiresAt = expiresAt;
+        this.appUser = appUser;
+    }
+
+    public ConfirmationToken(AppUser appUser) {
         this.appUser = appUser;
     }
 }
