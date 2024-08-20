@@ -18,12 +18,18 @@ public class ConfirmationTokenService {
         confirmationTokenRepository.save(token);
     }
 
-    public Optional<ConfirmationToken> getToken(String token) {
-        return confirmationTokenRepository.findByConfirmationToken(token);
-    }
+
+ 
+}
+
+
+   // public Optional<ConfirmationToken> getToken(String token) {
+    //     return confirmationTokenRepository.findByConfirmationToken(token);
+    // }
+
+
 
     // public int setConfirmedAt(String token) {
     //     return confirmationTokenRepository.setConfirmedAt(
     //             token, LocalDateTime.now());
     // }
-}

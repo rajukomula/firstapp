@@ -16,14 +16,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-
-
 @RestController
 @RequestMapping(path = "api/v1")
 @AllArgsConstructor
 public class RegistrationController {
-
-
 
     @Autowired
     private AppUserRepository appUserRepository;
@@ -34,50 +30,77 @@ public class RegistrationController {
     @Autowired
     private EmailService emailService;
 
-    @RequestMapping(value="/register", method = RequestMethod.GET)
-    public ModelAndView displayRegistration(ModelAndView modelAndView, AppUser appUser)
-    {
-        modelAndView.addObject("appUser", appUser);
-        modelAndView.setViewName("register");
-        return modelAndView;
+    // @RequestMapping(value="/register", method = RequestMethod.GET)
+    // public ModelAndView displayRegistration(ModelAndView modelAndView)
+    // {
+    //     System.out.println("get one triggered");
+
+    //     modelAndView.addObject("appUser", new AppUser());
+    //     modelAndView.setViewName("register");
+    //     return modelAndView;
+    // }
+    @PostMapping("/print")
+    public void printStrings(@RequestBody AppUser appUser) {
+        // Print the received strings to the console
+        System.out.println("First Name: " + appUser.getFirstName());
+        System.out.println("Last Name: " + appUser.getLastName());
     }
     
-    
-    
-    @RequestMapping(value="/register", method = RequestMethod.POST)
-    public ModelAndView registerUser(ModelAndView modelAndView, AppUser appUser)
+    @PostMapping("/register")
+    public void registerUser(@RequestBody AppUser appUser)
     {
+        System.out.println("post one triggered");
 
-    	AppUser existingUser = appUserRepository.findByEmailIdIgnoreCase(appUser.getEmail())
-                                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+
+    	AppUser existingUser = appUserRepository.findByEmailIgnoreCase(appUser.getEmail())
+                                .orElse(null);
+
         if(existingUser != null)
         {
-            modelAndView.addObject("message","This email already exists!");
-            modelAndView.setViewName("error");
+            // modelAndView.addObject("message","This email already exists!");
+            // modelAndView.setViewName("error");
+
+            System.out.println("if block triggered");
         }
         else
         {
+            System.out.println("else block triggered");
+
             appUserRepository.save(appUser);
 
             ConfirmationToken confirmationToken = new ConfirmationToken(appUser);
+            System.out.println("before");
 
             confirmationTokenRepository.save(confirmationToken);
+            System.out.println("after");
+
+
 
             SimpleMailMessage mailMessage = new SimpleMailMessage();
             mailMessage.setTo(appUser.getEmail());
             mailMessage.setSubject("Complete Registration!");
-            mailMessage.setFrom("YOUR EMAIL ADDRESS");
+            mailMessage.setFrom("testemailforapp9@gmail.com");
             mailMessage.setText("To confirm your account, please click here : "
-            +"http://localhost:8080/confirm-account?token="+confirmationToken.getConfirmationToken());
+            +"https://musical-train-7vrjpgwx64xj3rpv5-8080.app.github.dev/confirm-account?token="+confirmationToken.getConfirmationToken());
 
+            System.out.println("email debugggg");
+
+            System.out.println("Sending email to: " + appUser.getEmail());
+            System.out.println("Email subject: " + mailMessage.getSubject());
+            System.out.println("Email from: " + mailMessage.getFrom());
+            System.out.println("Email content: " + mailMessage.getText());
+            
             emailService.sendEmail(mailMessage);
 
-            modelAndView.addObject("email", appUser.getEmail());
+            // modelAndView.addObject("email", appUser.getEmail());
 
-            modelAndView.setViewName("successfulRegisteration");
+            System.out.println("two triggered");
+
+            // modelAndView.setViewName("successfulRegisteration");
         }
 
-        return modelAndView;
+        // return modelAndView;
     }
     
 
@@ -89,7 +112,7 @@ public class RegistrationController {
 
         if(token != null)
         {
-        	AppUser user = appUserRepository.findByEmailIdIgnoreCase(token.getAppUser().getEmail())
+        	AppUser user = appUserRepository.findByEmailIgnoreCase(token.getAppUser().getEmail())
                             .orElseThrow(() -> new UsernameNotFoundException("User not found"));
             user.setEnabled(true);
             appUserRepository.save(user);

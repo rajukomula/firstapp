@@ -17,25 +17,10 @@ import java.util.UUID;
 import java.util.Date;
 
 @Service
+@AllArgsConstructor
 public class AppUserService implements UserDetailsService {
 
       
-        //contructor injection
-        @Autowired
-        public AppUserService(AppUserRepository appUserRepository,
-        BCryptPasswordEncoder bCryptPasswordEncoder,
-        ConfirmationTokenService confirmationTokenService
-        
-        ) {
-                this.appUserRepository = appUserRepository;
-                this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-                this.confirmationTokenService = confirmationTokenService;
-        }
-
-
-
-
-
     private final static String USER_NOT_FOUND_MSG =
             "user with email %s not found";
 
@@ -46,7 +31,7 @@ public class AppUserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email)
             throws UsernameNotFoundException {
-        return appUserRepository.findByEmailIdIgnoreCase(email)
+        return appUserRepository.findByEmailIgnoreCase(email)
                 .orElseThrow(() ->
                         new UsernameNotFoundException(
                                 String.format(USER_NOT_FOUND_MSG, email)));
@@ -54,7 +39,7 @@ public class AppUserService implements UserDetailsService {
 
     public String signUpUser(AppUser appUser) {
         boolean userExists = appUserRepository
-                .findByEmailIdIgnoreCase(appUser.getEmail())
+                .findByEmailIgnoreCase(appUser.getEmail())
                 .isPresent();
 
         if (userExists) {

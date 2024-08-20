@@ -15,7 +15,7 @@ spring:
       validation-timeout: 5000 # 5 seconds
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: true
     properties:
       hibernate:
@@ -34,8 +34,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: your email address through which you will send the link
-    password: password of your email address
+    username: testemailforapp9@gmail.com
+    password: erbu woia zzvg ndjl
     properties:
       mail:
         smtp:

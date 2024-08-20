@@ -4,6 +4,8 @@ package com.example.backendapp.registration.token;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.UUID;
+
 
 import jakarta.persistence.*;
 import jakarta.persistence.ManyToOne;
@@ -35,7 +37,7 @@ public class ConfirmationToken {
     private Long id;
 
     @Column(nullable = false)
-    private String ConfirmationToken;
+    private String confirmationToken;
 
     @Column(nullable = false)
     private Date createdAt;
@@ -52,17 +54,20 @@ public class ConfirmationToken {
     )
     private AppUser appUser;
 
-    public ConfirmationToken(String ConfirmationToken,
+    public ConfirmationToken(String confirmationToken,
                              Date createdAt,
                              LocalDateTime expiresAt,
                              AppUser appUser) {
-        this.ConfirmationToken = ConfirmationToken;
+        this.confirmationToken = confirmationToken;
         this.createdAt = createdAt;
         this.expiresAt = expiresAt;
         this.appUser = appUser;
     }
 
     public ConfirmationToken(AppUser appUser) {
+        this.confirmationToken = UUID.randomUUID().toString(); // Generate a unique token
+        this.createdAt = new Date();
+        this.expiresAt = LocalDateTime.now().plusMinutes(15);  // Set expiration (e.g., 15 minutes)
         this.appUser = appUser;
     }
 }

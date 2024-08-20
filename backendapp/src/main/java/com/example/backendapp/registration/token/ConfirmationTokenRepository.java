@@ -10,6 +10,15 @@ public interface ConfirmationTokenRepository extends CrudRepository<Confirmation
     Optional<ConfirmationToken> findByConfirmationToken(String confirmationToken);
 
 
+
+}
+
+
+
+
+
+
+
 // import org.springframework.data.jpa.repository.JpaRepository;
 // import org.springframework.data.jpa.repository.Modifying;
 // import org.springframework.data.jpa.repository.Query;
@@ -33,4 +42,3 @@ public interface ConfirmationTokenRepository extends CrudRepository<Confirmation
     //         "WHERE c.token = ?1")
     // int updateConfirmedAt(String token,
     //                       LocalDateTime confirmedAt);
-}

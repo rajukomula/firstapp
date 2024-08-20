@@ -7,6 +7,9 @@ try to add manually JAVA_HOME and change java 11 to 17 before start
 sdk install java 17.0.9-graalce
 
 
+psql -h postgresservice-jobsearchapplication.i.aivencloud.com -p 26114 -U avnadmin -d defaultdb
+
+
 
 psql -U postgres -h postgresservice-jobsearchapplication.i.aivencloud.com
                      
