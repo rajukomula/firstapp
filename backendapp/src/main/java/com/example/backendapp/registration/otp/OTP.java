@@ -17,6 +17,11 @@ public class OTP {
 
     private boolean otpExpired;
 
+    // Default constructor required by Hibernate
+    public OTP() {
+        // No-argument constructor
+    }
+
     public OTP(int otpValue) {
         this.otpValue = otpValue;
         this.createdAt = LocalDateTime.now();
@@ -37,5 +42,21 @@ public class OTP {
 
     public int getOtpValue() {
         return otpValue;
+    }
+
+    public void setOtpValue(int otpValue) {
+        this.otpValue = otpValue;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setOtpExpired(boolean otpExpired) {
+        this.otpExpired = otpExpired;
     }
 }
