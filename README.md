@@ -9,7 +9,7 @@ sdk install java 17.0.9-graalce
 
 psql -h postgresservice-jobsearchapplication.i.aivencloud.com -p 26114 -U avnadmin -d defaultdb
 
-
+otp code : https://chatgpt.com/share/92678aaa-a848-4606-8ffc-d8abb035abfc
 
 psql -U postgres -h postgresservice-jobsearchapplication.i.aivencloud.com
                      
