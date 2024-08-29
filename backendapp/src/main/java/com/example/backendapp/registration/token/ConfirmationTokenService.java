@@ -1,11 +1,9 @@
 package com.example.backendapp.registration.token;
 
-
-
+import com.example.backendapp.appuser.AppUser;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -18,14 +16,17 @@ public class ConfirmationTokenService {
         confirmationTokenRepository.save(token);
     }
 
+    // Correct method to find a token by AppUser
+    public Optional<ConfirmationToken> getTokenByUser(AppUser appUser) {
+        return confirmationTokenRepository.findByAppUser(appUser);
+    }
 
- 
+    public Optional<ConfirmationToken> getToken(String token) {
+        return confirmationTokenRepository.findByConfirmationToken(token);
+    }
 }
 
 
-   // public Optional<ConfirmationToken> getToken(String token) {
-    //     return confirmationTokenRepository.findByConfirmationToken(token);
-    // }
 
 
 

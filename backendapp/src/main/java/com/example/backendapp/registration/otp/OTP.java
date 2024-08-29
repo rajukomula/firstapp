@@ -2,7 +2,6 @@ package com.example.backendapp.registration.otp;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.time.Duration;
 
 @Entity
 public class OTP {
@@ -12,12 +11,9 @@ public class OTP {
     private Long id;
 
     private int otpValue;
-
     private LocalDateTime createdAt;
-
     private boolean otpExpired;
 
-    // Default constructor required by Hibernate
     public OTP() {
         // No-argument constructor
     }
@@ -28,18 +24,20 @@ public class OTP {
         this.otpExpired = false;
     }
 
-    // Method to check if the OTP has expired
+    // Method to check if the OTP has expired and update its status
     public void checkIfExpired() {
-        if (Duration.between(this.createdAt, LocalDateTime.now()).toMinutes() >= 5) {
+        if (LocalDateTime.now().isAfter(this.createdAt.plusMinutes(5))) {
             this.otpExpired = true;
         }
     }
 
-    // Getters and setters
+    // Automatically update expiration status when OTP is accessed
     public boolean isOtpExpired() {
+        checkIfExpired();
         return otpExpired;
     }
 
+    // Getters and setters
     public int getOtpValue() {
         return otpValue;
     }

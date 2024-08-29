@@ -1,19 +1,21 @@
 package com.example.backendapp.registration.token;
 
-import java.util.Optional;
-
+import com.example.backendapp.appuser.AppUser;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-@Repository("confirmationTokenRepository")
-public interface ConfirmationTokenRepository extends CrudRepository<ConfirmationToken, String> {
+import java.util.Optional;
+
+@Repository
+@Transactional(readOnly = true)
+public interface ConfirmationTokenRepository extends CrudRepository<ConfirmationToken, Long> {
+
     Optional<ConfirmationToken> findByConfirmationToken(String confirmationToken);
 
-
-
+    // Correct method to find ConfirmationToken by AppUser
+    Optional<ConfirmationToken> findByAppUser(AppUser appUser);
 }
-
-
 
 
 
