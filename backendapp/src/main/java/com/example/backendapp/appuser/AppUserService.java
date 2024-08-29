@@ -69,18 +69,22 @@ public class AppUserService implements UserDetailsService {
         return bCryptPasswordEncoder.matches(rawPassword, encodedPassword);
     }
 
-    
+
+
     public String signUpUser(AppUser appUser) {
         boolean userExists = appUserRepository.findByEmailIgnoreCase(appUser.getEmail()).isPresent();
 
+        // If user already exists, throw EmailAlreadyTakenException
         if (userExists) {
             throw new EmailAlreadyTakenException("User with this email already exists.");
         }
 
+        // Encrypt and save user
         String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
         appUser.setPassword(encodedPassword);
         appUserRepository.save(appUser);
 
+        // Generate and save a new confirmation token
         String token = UUID.randomUUID().toString();
         ConfirmationToken confirmationToken = new ConfirmationToken(
                 token,
@@ -89,10 +93,36 @@ public class AppUserService implements UserDetailsService {
         );
         confirmationTokenService.saveConfirmationToken(confirmationToken);
 
+        // Generate and send OTP
         int otpValue = generateOtpAndSendEmail(appUser);
 
         return "User created successfully. OTP sent.";
     }
+
+    
+    // public String signUpUser(AppUser appUser) {
+    //     boolean userExists = appUserRepository.findByEmailIgnoreCase(appUser.getEmail()).isPresent();
+
+    //     if (userExists) {
+    //         throw new EmailAlreadyTakenException("User with this email already exists.");
+    //     }
+
+    //     String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
+    //     appUser.setPassword(encodedPassword);
+    //     appUserRepository.save(appUser);
+
+    //     String token = UUID.randomUUID().toString();
+    //     ConfirmationToken confirmationToken = new ConfirmationToken(
+    //             token,
+    //             new Date(),
+    //             appUser
+    //     );
+    //     confirmationTokenService.saveConfirmationToken(confirmationToken);
+
+    //     int otpValue = generateOtpAndSendEmail(appUser);
+
+    //     return "User created successfully. OTP sent.";
+    // }
 
     private int generateOtpAndSendEmail(AppUser appUser) {
         Random random = new Random();
