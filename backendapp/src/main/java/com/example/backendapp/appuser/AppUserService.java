@@ -15,7 +15,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.mail.SimpleMailMessage;
-
 import java.util.Random;
 import java.util.UUID;
 import java.util.Date;

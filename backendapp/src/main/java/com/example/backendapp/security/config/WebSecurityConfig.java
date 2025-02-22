@@ -25,7 +25,7 @@ public class WebSecurityConfig {
             .authorizeRequests()
             .anyRequest().permitAll()
             .and()
-            .formLogin().disable(); // Explicitly disable form login
+            .formLogin().disable(); 
 
         return httpSecurity.build();
     }
