@@ -1,2 +1,7 @@
+com/example/model/FileEntity.class
 com/example/App.class
+com/example/controller/FileUploadController.class
+com/example/exception/FileStorageException.class
+com/example/service/FileStorageService.class
+com/example/repository/FileRepository.class
 com/example/MySpringBootApp.class
