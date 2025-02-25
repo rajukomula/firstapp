@@ -1,0 +1,53 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://postgresservice-jobsearchapplication.i.aivencloud.com:26114/defaultdb
+    username: avnadmin
+    password: AVNS_3-nFDWAyFsOQZBDeqDg
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      max-lifetime: 300000 # 5 minutes
+      idle-timeout: 600000 # 10 minutes
+      connection-timeout: 30000 # 30 seconds
+      validation-timeout: 5000 # 5 seconds
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    entity-packages: 
+      - com.FirstApp.appuser
+      - com.FirstApp.registration.token
+  security:
+    basic:
+      enabled: false # Disable basic authentication
+    user:
+      name: user
+      password: password
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: testemailforapp9@gmail.com
+    password: erbu woia zzvg ndjl
+    properties:
+      mail:
+        smtp:
+          ssl:
+            trust: "*"
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+my:
+  links:
+    link1: https://musical-train-7vrjpgwx64xj3rpv5-8080.app.github.dev
+    link2: https://example.com/link2

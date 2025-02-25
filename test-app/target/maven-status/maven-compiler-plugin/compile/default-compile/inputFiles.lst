@@ -1,0 +1,14 @@
+/workspaces/firstapp/test-app/src/main/java/com/example/usermanagementpackage/controller/UserController.java
+/workspaces/firstapp/test-app/src/main/java/com/example/usermanagementpackage/repository/WorkSampleRepository.java
+/workspaces/firstapp/test-app/src/main/java/com/example/usermanagementpackage/service/UserService.java
+/workspaces/firstapp/test-app/src/main/java/com/example/usermanagementpackage/repository/ReviewRepository.java
+/workspaces/firstapp/test-app/src/main/java/com/example/usermanagementpackage/entity/Availability.java
+/workspaces/firstapp/test-app/src/main/java/com/example/security/config/WebSecurityConfig.java
+/workspaces/firstapp/test-app/src/main/java/com/example/MySpringBootApp.java
+/workspaces/firstapp/test-app/src/main/java/com/example/usermanagementpackage/repository/UserRepository.java
+/workspaces/firstapp/test-app/src/main/java/com/example/usermanagementpackage/entity/Review.java
+/workspaces/firstapp/test-app/src/main/java/com/example/usermanagementpackage/repository/AvailabilityRepository.java
+/workspaces/firstapp/test-app/src/main/java/com/example/usermanagementpackage/entity/Skill.java
+/workspaces/firstapp/test-app/src/main/java/com/example/usermanagementpackage/entity/WorkSample.java
+/workspaces/firstapp/test-app/src/main/java/com/example/usermanagementpackage/entity/User.java
+/workspaces/firstapp/test-app/src/main/java/com/example/usermanagementpackage/repository/SkillRepository.java
