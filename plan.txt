@@ -1,0 +1,1 @@
+user profile frontend - Name, age, location, profile picture/avatar, availability, role_name, completed-works, skills(string), ratings (string), 
