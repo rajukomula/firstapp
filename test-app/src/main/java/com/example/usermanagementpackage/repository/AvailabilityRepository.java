@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AvailabilityRepository extends JpaRepository<Availability, Long> {
+    void deleteByUserId(Long userId);
 }

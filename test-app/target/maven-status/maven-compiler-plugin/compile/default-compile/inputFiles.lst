@@ -7,7 +7,9 @@
 /workspaces/firstapp/test-app/src/main/java/com/example/MySpringBootApp.java
 /workspaces/firstapp/test-app/src/main/java/com/example/usermanagementpackage/repository/UserRepository.java
 /workspaces/firstapp/test-app/src/main/java/com/example/usermanagementpackage/entity/Review.java
+/workspaces/firstapp/test-app/src/main/java/com/example/usermanagementpackage/service/ReviewService.java
 /workspaces/firstapp/test-app/src/main/java/com/example/usermanagementpackage/repository/AvailabilityRepository.java
+/workspaces/firstapp/test-app/src/main/java/com/example/usermanagementpackage/controller/ReviewController.java
 /workspaces/firstapp/test-app/src/main/java/com/example/usermanagementpackage/entity/Skill.java
 /workspaces/firstapp/test-app/src/main/java/com/example/usermanagementpackage/entity/WorkSample.java
 /workspaces/firstapp/test-app/src/main/java/com/example/usermanagementpackage/entity/User.java

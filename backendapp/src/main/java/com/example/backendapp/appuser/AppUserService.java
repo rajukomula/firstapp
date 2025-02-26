@@ -140,6 +140,7 @@ public class AppUserService implements UserDetailsService {
         }
 
         return otpValue;
+        
     }
 
     private void sendOtpEmail(String email, int otpValue) {

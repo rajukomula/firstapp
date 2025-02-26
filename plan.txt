@@ -1,1 +1,95 @@
 user profile frontend - Name, age, location, profile picture/avatar, availability, role_name, completed-works, skills(string), ratings (string), 
+
+
+createUser
+getUserById
+deleteUser
+updateAvatar
+updateName
+updateTitle
+updateLocation
+addSkill
+updateSkill
+removeSkill
+
+
+
+reviews -> review_id, review_text, review_star_count,                       review_date, 
+           reviewer( with limited details - name, photo, profile            link)
+
+availability - {monday - t, tuesday - t etc)
+
+work_samples - (work_samples_id, work_sample_format_name,
+                work_sample_type, work_sample_link)
+
+skill - skill_id, skill_name, skill_category
+
+
+
+*****You can create a global context to store user data temporarily across different pages and then send all the data in a single API request.
+
+
+
+Usercontroler - createUser, updateUser, getUserById, deleteUser, 
+ …              createSkill, updateSkill, getSkillById, deleteSkill,
+
+
+
+
+mvn archetype:generate -DgroupId=com.jobplatform -DartifactId=development1 -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+
+
+
+
+
+
+job-platform-backend/
+│── src/main/java/com/example/jobplatform
+│   ├── auth/                         # Authentication Module
+│   │   ├── controller/                # Controllers (Auth APIs)
+│   │   │   ├── AuthController.java     # Signup, Login, OTP, Password Reset
+│   │   ├── dto/                        # Data Transfer Objects (DTOs)
+│   │   │   ├── SignupRequest.java      
+│   │   │   ├── LoginRequest.java       
+│   │   │   ├── PasswordResetRequest.java  
+│   │   ├── entity/                     # Entities (Database Tables)
+│   │   │   ├── UserAuth.java            # Stores email, password, role
+│   │   │   ├── OTP.java                 # OTP verification
+│   │   ├── repository/                  # Repositories (JPA)
+│   │   │   ├── UserAuthRepository.java  
+│   │   │   ├── OTPRepository.java       
+│   │   ├── service/                     # Business Logic
+│   │   │   ├── AuthService.java         # Handles login, signup
+│   │   │   ├── OTPService.java          # Handles OTP generation
+│   │   │   ├── PasswordResetService.java # Password reset logic
+│   │   ├── security/                    # Security (JWT, Encryption)
+│   │   │   ├── JwtUtil.java             
+│   │   │   ├── SecurityConfig.java      
+│   │   ├── util/                        # Utility Classes
+│   │   │   ├── EmailService.java        # Sends OTP & password reset emails
+│
+│   ├── user/                            # User Profile Management Module
+│   │   ├── controller/                  # Controllers (Profile APIs)
+│   │   │   ├── UserController.java      # Get/update user profile
+│   │   ├── dto/                          # Data Transfer Objects (DTOs)
+│   │   │   ├── UserProfileDTO.java
+│   │   ├── entity/                       # Entities (Database Tables)
+│   │   │   ├── UserProfile.java         # Stores user profile details
+│   │   ├── repository/                   # Repositories (JPA)
+│   │   │   ├── UserProfileRepository.java
+│   │   ├── service/                      # Business Logic
+│   │   │   ├── UserService.java         # Handles profile updates
+│   │   │   ├── AvatarService.java       # Handles profile picture uploads
+│   │   ├── util/                         # Utility Classes
+│   │   │   ├── FileStorageUtil.java     # Handles image uploads
+│
+│   ├── config/                           # Global Configuration Files
+│   │   ├── AppConfig.java                # General configurations
+│   │   ├── SwaggerConfig.java            # API Documentation setup
+│
+│   ├── JobPlatformApplication.java       # Main Application Entry Point
+│
+│── src/main/resources/
+│   ├── application.yml                   # Configuration (DB, Security, Email)
+│
+│── pom.xml                                # Dependencies (Spring Boot, JWT, etc.)

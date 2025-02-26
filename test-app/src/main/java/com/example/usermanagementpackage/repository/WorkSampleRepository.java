@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WorkSampleRepository extends JpaRepository<WorkSample, Long> {
+    void deleteByUserId(Long userId);
 }
