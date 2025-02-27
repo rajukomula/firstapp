@@ -1,0 +1,6 @@
+/workspaces/firstapp/development1/src/main/java/com/jobplatform/App.java
+/workspaces/firstapp/development1/src/main/java/com/jobplatform/MainApplication.java
+/workspaces/firstapp/development1/src/main/java/com/jobplatform/auth/controller/AuthController.java
+/workspaces/firstapp/development1/src/main/java/com/jobplatform/auth/entity/OTP.java
+/workspaces/firstapp/development1/src/main/java/com/jobplatform/auth/entity/UserAuth.java
+/workspaces/firstapp/development1/src/main/java/com/jobplatform/auth/entity/UserRole.java

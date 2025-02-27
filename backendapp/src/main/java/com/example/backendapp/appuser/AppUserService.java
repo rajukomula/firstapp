@@ -43,7 +43,6 @@ public class AppUserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, email)));
     }
 
-
     public String signInUser(String email, String rawPassword) {
         AppUser appUser = appUserRepository.findByEmailIgnoreCase(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User with email " + email + " not found"));

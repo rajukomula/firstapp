@@ -1,0 +1,6 @@
+com/jobplatform/MainApplication.class
+com/jobplatform/auth/controller/AuthController.class
+com/jobplatform/App.class
+com/jobplatform/auth/entity/UserRole.class
+com/jobplatform/auth/entity/UserAuth.class
+com/jobplatform/auth/entity/OTP.class
